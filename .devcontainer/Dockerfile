@@ -3,15 +3,15 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-FROM --platform=linux/amd64 clojure:openjdk-8-lein-2.9.1
+FROM --platform=linux/amd64 clojure:tools-deps
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils 2>&1
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils
 
 # Install git, process tools, lsb-release (common in install instructions for CLIs)
-RUN apt-get -y install git procps lsb-release
+RUN apt-get -y install git procps lsb-release wget unzip
 
 # Clean up
 RUN apt-get autoremove -y \
@@ -23,10 +23,10 @@ ENV DEBIAN_FRONTEND=dialog
 RUN if [ ! -d "/docker-java-home" ]; then ln -s "${JAVA_HOME}" /docker-java-home; fi
 
 # install joker
-ENV JOKER_VERSION=0.12.4
-RUN wget https://github.com/candid82/joker/releases/download/v${JOKER_VERSION}/joker-${JOKER_VERSION}-linux-amd64.zip \
-    && unzip joker-${JOKER_VERSION}-linux-amd64.zip \
-    && rm joker-${JOKER_VERSION}-linux-amd64.zip \
+ENV JOKER_VERSION=1.1.0
+RUN wget https://github.com/candid82/joker/releases/download/v${JOKER_VERSION}/joker-linux-amd64.zip \
+    && unzip joker-linux-amd64.zip \
+    && rm joker-linux-amd64.zip \
     && chmod a+x joker && mv joker /usr/bin
 
 # Set the default shell to bash rather than sh
