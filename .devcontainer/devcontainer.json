@@ -1,6 +1,11 @@
 {
 	"name": "Clojure",
-	"dockerFile": "Dockerfile",
-	"customizations": {"vscode": {"extensions": ["betterthantomorrow.calva"],
-								  "settings": {"calva.jokerPath": "/usr/bin"}}}
+	"service": "cljdev",
+	"dockerComposeFile": "docker-compose.yml",
+	"customizations": {"vscode": {"extensions": [
+				"betterthantomorrow.calva",
+				"ms-azuretools.vscode-docker"
+			],
+								  "settings": {"calva.jokerPath": "/usr/bin"}}},
+	"workspaceFolder": "/workspace"
 }
